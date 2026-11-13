@@ -1,0 +1,47 @@
+# ═══════════════════════════════════════════════════════════════
+# Jarvis em Português — voz (ouve e fala) + cérebro na nuvem
+# ═══════════════════════════════════════════════════════════════
+#
+# Como usar:
+#   1. Copie este arquivo para  ~/.openjarvis/config.toml
+#   2. Copie a persona  jarvis-pt.md  para  ~/.openjarvis/jarvis-pt.md
+#   3. Exporte sua chave:  export ANTHROPIC_API_KEY="sk-ant-..."
+#   4. Rode:  jarvis chat --voice
+#
+# Precisa de UMA chave só: a do cérebro (Anthropic). Ouvir e falar
+# rodam localmente, sem chave e sem internet.
+# ═══════════════════════════════════════════════════════════════
+
+# ── CÉREBRO: modelo na nuvem (Anthropic / Claude) ──────────────
+[engine]
+default = "cloud"
+
+[intelligence]
+provider = "anthropic"
+default_model = "claude-haiku-4-5"
+# default_model = "claude-sonnet-4-6"
+temperature = 0.4
+max_tokens = 400
+
+# ── AGENTE: conversa simples, sem ferramentas ──────────────────
+[agent]
+default_agent = "simple"
+system_prompt_path = "~/.openjarvis/jarvis-pt.md"
+context_from_memory = false
+
+# ── OUVIR: fala → texto (local, sem chave) ─────────────────────
+[speech]
+backend = "faster-whisper"
+model = "small"
+language = "pt"
+device = "auto"
+compute_type = "int8"
+
+# ── FALAR: texto → fala (local, português do Brasil, sem chave) ─
+tts_backend = "kokoro"
+voice_id = "pm_alex"
+voice_speed = 1.0
+
+[server]
+host = "127.0.0.1"
+port = 8000
